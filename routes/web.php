@@ -20,3 +20,8 @@ Route::get('/', function () {
 Route::get('practice', function() {
     return response('practice');
 });
+
+Route::get('practice2', function() {
+    $test = 'practice2';
+    return response($test);
+});
