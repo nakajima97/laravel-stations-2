@@ -10,6 +10,7 @@
   <ul>
     @foreach ($movies as $movie)
       <li>タイトル：{{ $movie->title }}</li>
+      <li>画像URL：{{ $movie->image_url }}</li>
     @endforeach
   </ul>
 </body>
