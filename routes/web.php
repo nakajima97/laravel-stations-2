@@ -35,4 +35,4 @@ Route::get('/admin/movies/create', [AdminMovieController::class, 'create'])
 Route::post('/admin/movies/store', [AdminMovieController::class, 'store'])
     ->name('admin.movies.store');
 Route::get('/admin/movies/{id}/edit', [AdminMovieController::class, 'edit'])
-->name('admin.movies.edit');
+    ->name('admin.movies.edit');
