@@ -26,10 +26,16 @@ class MovieController extends Controller
         $movie->title = $request->input('title');
         $movie->image_url = $request->input('image_url');
         $movie->published_year = $request->input('published_year');
-        $movie->is_showing = $request->input('is_showing') === "true" ? true : false;
+        $movie->is_showing = $request->input('is_showing') === "1" ? true : false;
         $movie->description = $request->input('description');
         $movie->save();
 
         return redirect()->route('admin.movies.index');
+    }
+
+    public function edit($id)
+    {
+        $movie = Movie::find($id);
+        return view('admin.movies.edit', ['movie' => $movie]);
     }
 }
