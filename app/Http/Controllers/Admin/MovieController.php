@@ -13,4 +13,14 @@ class MovieController extends Controller
         $movies = Movie::all();
         return view('admin.movies.index', ['movies' => $movies]);
     }
+
+    public function create()
+    {
+        return view('admin.movies.create');
+    }
+
+    public function store()
+    {
+        return redirect()->route('admin.movies.index');
+    }
 }
