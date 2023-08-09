@@ -25,7 +25,7 @@ class AdminMovieStoreRequest extends FormRequest
     {
         return [
             'title' => 'required|unique:movies',
-            'image_url' => 'required',
+            'image_url' => 'required|url',
             'published_year' => 'required',
             'is_showing' => 'required',
             'description' => 'required',
