@@ -11,27 +11,30 @@
 <body>
     <form action="{{ route('admin.movies.store') }}" method="POST">
       @csrf
+      @foreach ($errors->all() as $error)
+        <li>{{$error}}</li>
+      @endforeach
       <div>
         <label for="title">映画タイトル</label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" value="{{ old('title') }}">
       </div>
       <div>
         <label for="image_url">画像URL</label>
-        <input type="url" name="image_url" id="image_url">
+        <input type="url" name="image_url" id="image_url" value="{{ old('image_url') }}">
       </div>
       <div>
         <label for="published_year">公開年</label>
-        <input type="number" name="published_year" id="published_year">
+        <input type="number" name="published_year" id="published_year" value="{{ old('published_year') }}">
       </div>
       <div>
-        <label for="published_year_yes">公開中</label>
-        <input type="radio" name="is_showing" id="published_year_yes" value="1">
-        <label for="published_year_no">公開前</label>
-        <input type="radio" name="is_showing" id="published_year_no" value="0">
+        <label for="is_showing_yes">公開中</label>
+        <input type="radio" name="is_showing" id="is_showing_yes" value="1" @if(old('is_showing') === '1') checked @endif>
+        <label for="is_showing_no">公開前</label>
+        <input type="radio" name="is_showing" id="is_showing_no" value="0" @if(old('is_showing') === '0') checked @endif>
       </div>
       <div>
         <label for="description">概要</label>
-        <textarea name="description" id="description" cols="30" rows="10"></textarea>
+        <textarea name="description" id="description" cols="30" rows="10">{{ old('description') }}</textarea>
       </div>
       <input type="submit" value="送信">
     </form>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminMovieStoreRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class MovieController extends Controller
         return view('admin.movies.create');
     }
 
-    public function store(Request $request)
+    public function store(AdminMovieStoreRequest $request)
     {
         $movie = new Movie();
         $movie->title = $request->input('title');
