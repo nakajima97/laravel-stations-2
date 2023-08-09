@@ -25,9 +25,9 @@
       </div>
       <div>
         <label for="published_year_yes">公開中</label>
-        <input type="radio" name="is_showing" id="published_year_yes" value="true">
+        <input type="radio" name="is_showing" id="published_year_yes" value="1">
         <label for="published_year_no">公開前</label>
-        <input type="radio" name="is_showing" id="published_year_no" value="false">
+        <input type="radio" name="is_showing" id="published_year_no" value="0">
       </div>
       <div>
         <label for="description">概要</label>

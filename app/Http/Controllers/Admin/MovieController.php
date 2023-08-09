@@ -19,8 +19,16 @@ class MovieController extends Controller
         return view('admin.movies.create');
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $movie = new Movie();
+        $movie->title = $request->input('title');
+        $movie->image_url = $request->input('image_url');
+        $movie->published_year = $request->input('published_year');
+        $movie->is_showing = $request->input('is_showing') === "true" ? true : false;
+        $movie->description = $request->input('description');
+        $movie->save();
+
         return redirect()->route('admin.movies.index');
     }
 }
