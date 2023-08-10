@@ -7,6 +7,8 @@ use App\Http\Requests\AdminMovieStoreRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class MovieController extends Controller
 {
     public function index()
@@ -37,5 +39,18 @@ class MovieController extends Controller
     {
         $movie = Movie::find($id);
         return view('admin.movies.edit', ['movie' => $movie]);
+    }
+
+    public function update(AdminMovieStoreRequest $request, $id)
+    {
+        $movie = Movie::find($id);
+
+        if (!$movie) {
+            return redirect()->route('admin.movies.index')->with(['flash_message' => '存在しない映画です。']);
+        }
+
+        $movie->update($request->all());
+
+        return redirect()->route('admin.movies.index')->with(['flash_message' => '更新に成功しました。']);
     }
 }

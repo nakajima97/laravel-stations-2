@@ -9,8 +9,9 @@
 </head>
 
 <body>
-    <form action="{{ route('admin.movies.store') }}" method="POST">
+    <form action="{{ route('admin.movies.update', $movie->id) }}" method="POST">
       @csrf
+      @method('PATCh')
       @foreach ($errors->all() as $error)
         <li>{{$error}}</li>
       @endforeach
