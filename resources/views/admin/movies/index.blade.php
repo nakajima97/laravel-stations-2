@@ -22,6 +22,7 @@
                 <th>公開年</th>
                 <th>上映中かどうか</th>
                 <th>概要</th>
+                <th>編集</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,7 @@
                     <td>{{ $movie->published_year }}</td>
                     <td>{{ $movie->is_showing ? '上映中' : '上映予定' }}</td>
                     <td>{{ $movie->description }}</td>
+                    <td><a href="{{ route('admin.movies.edit', ['id' => $movie->id]) }}">編集</a></td>
                 </tr>
             @endforeach
         </tbody>
