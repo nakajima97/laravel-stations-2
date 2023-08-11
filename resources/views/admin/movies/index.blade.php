@@ -27,7 +27,6 @@
             </tr>
         </thead>
         <tbody>
-            @csrf
             @foreach ($movies as $movie)
                 <tr>
                     <td>{{ $movie->title }}</td>
