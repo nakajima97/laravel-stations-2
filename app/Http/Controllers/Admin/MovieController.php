@@ -53,4 +53,17 @@ class MovieController extends Controller
 
         return redirect()->route('admin.movies.index')->with(['flash_message' => '更新に成功しました。']);
     }
+
+    public function destroy($id)
+    {
+        $movie = Movie::find($id);
+
+        if (!$movie) {
+            abort(404);
+        }
+
+        $movie->delete();
+
+        return redirect()->route('admin.movies.index')->with(['flash_message' => '削除に成功しました。']);
+    }
 }

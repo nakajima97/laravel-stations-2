@@ -23,9 +23,11 @@
                 <th>上映中かどうか</th>
                 <th>概要</th>
                 <th>編集</th>
+                <th>削除</th>
             </tr>
         </thead>
         <tbody>
+            @csrf
             @foreach ($movies as $movie)
                 <tr>
                     <td>{{ $movie->title }}</td>
@@ -34,10 +36,22 @@
                     <td>{{ $movie->is_showing ? '上映中' : '上映予定' }}</td>
                     <td>{{ $movie->description }}</td>
                     <td><a href="{{ route('admin.movies.edit', ['id' => $movie->id]) }}">編集</a></td>
+                    <td>
+                        <form method="post" action="{{ route('admin.movies.destroy', $movie->id) }}" style="display: inline;">
+                            @csrf
+                            @method('delete')
+                            <button class="delete-button" onclick="return confirmDelete();">削除</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    <script>
+        function confirmDelete() {
+            return confirm('本当に削除しますか？');
+        }
+    </script>
 </body>
 
 </html>
