@@ -11,8 +11,6 @@ class MovieController extends Controller
     {
         $query = Movie::query();
 
-        // dd($request);
-
         $keyword = $request->input('keyword');
         if (!empty($keyword)) {
             $query->where('title', 'LIKE', '%' . $keyword . '%')
