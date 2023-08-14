@@ -24,7 +24,7 @@
       </div>
       <div>
         <label for="genre">ジャンル</label>
-        <input type="url" name="genre" id="genre" value="{{ old('genre') }}">
+        <input type="text" name="genre" id="genre" value="{{ old('genre') }}">
       </div>
       <div>
         <label for="published_year">公開年</label>

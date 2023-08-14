@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminMovieStoreRequest;
+use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use function PHPUnit\Framework\isNull;
 
@@ -30,7 +32,26 @@ class MovieController extends Controller
         $movie->published_year = $request->input('published_year');
         $movie->is_showing = $request->input('is_showing') === "1" ? true : false;
         $movie->description = $request->input('description');
-        $movie->save();
+
+        $genre_name = $request->input('genre');
+        $genre = Genre::where('name', $genre_name)->get();
+
+        $genre_id = null;
+        if (!$genre->isEmpty()) {
+            $genre_id = $genre->id;
+        }
+
+        DB::transaction(function() use ($genre_id, $genre_name, $movie) {
+            if ($genre_id === null) {
+                $genre = new Genre();
+                $genre->name = $genre_name;
+                $genre->save();
+                $genre_id = $genre->id;
+            }
+
+            $movie->genre_id = $genre_id;
+            $movie->save();
+        });
 
         return redirect()->route('admin.movies.index');
     }
