@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'movie_id',
+        'start_time',
+        'end_time'
+    ];
+
+    public function Movie()
+    {
+        return $this->belongsTo(Movie::class);
+    }
 }
