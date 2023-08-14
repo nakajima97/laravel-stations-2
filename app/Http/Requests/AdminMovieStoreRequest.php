@@ -32,6 +32,7 @@ class AdminMovieStoreRequest extends FormRequest
             'published_year' => 'required',
             'is_showing' => 'required',
             'description' => 'required',
+            'genre' => 'required'
         ];
     }
 }
