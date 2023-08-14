@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 use function PHPUnit\Framework\isNull;
@@ -36,6 +37,10 @@ class MovieController extends Controller
             abort(404);
         }
 
-        return view('movies.show', ['movie' => $movie]);
+        $schedules = Schedule::where('movie_id', $movie->id)
+            ->orderBy('start_time')
+            ->get();
+
+        return view('movies.show', ['movie' => $movie, 'schedules' => $schedules]);
     }
 }
