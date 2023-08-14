@@ -20,7 +20,7 @@ class MovieController extends Controller
         }
 
         $is_showing = $request->input('is_showing');
-        if (!empty($is_showing) && $is_showing !== 'all') {
+        if ((!empty($is_showing) || $is_showing === '0') && $is_showing !== 'all') {
             $query->where('is_showing', $is_showing);
         }
 

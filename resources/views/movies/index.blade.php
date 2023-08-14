@@ -22,10 +22,12 @@
     </form>
   <ul>
     @foreach ($movies as $movie)
+      <li>id：{{ $movie->id }}</li>
+      <li>is_showing：{{ $movie->is_showing }}</li>
       <li>タイトル：{{ $movie->title }}</li>
       <li>画像URL：{{ $movie->image_url }}</li>
     @endforeach
   </ul>
-  {{ $movies->links() }}
+  {{ $movies->appends(request()->query())->links() }}
 </body>
 </html>
