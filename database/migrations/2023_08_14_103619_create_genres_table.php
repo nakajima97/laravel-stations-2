@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUniqueTitleToMovies extends Migration
+class CreateGenresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,22 @@ class AddUniqueTitleToMovies extends Migration
      */
     public function up()
     {
-        Schema::table('movies', function (Blueprint $table) {
-            $table->unique('title');
+        Schema::create('genres', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
+
+            $table->unique('name');
         });
     }
 
     /**
      * Reverse the migrations.
-     ** @return void
+     *
+     * @return void
      */
     public function down()
     {
-        Schema::table('movies', function (Blueprint $table) {
-            $table->dropUnique(['title']);
-        });
+        Schema::dropIfExists('genres');
     }
 }

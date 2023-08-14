@@ -23,6 +23,10 @@
         <input type="url" name="image_url" id="image_url" value="{{ old('image_url') }}">
       </div>
       <div>
+        <label for="genre">ジャンル</label>
+        <input type="text" name="genre" id="genre" value="{{ old('genre') }}">
+      </div>
+      <div>
         <label for="published_year">公開年</label>
         <input type="number" name="published_year" id="published_year" value="{{ old('published_year') }}">
       </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AdminMovieStoreRequest extends FormRequest
 {
@@ -23,12 +24,15 @@ class AdminMovieStoreRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('id');
+
         return [
-            'title' => 'required|unique:movies',
+            'title' => ['required', Rule::unique('movies')->ignore($id)],
             'image_url' => 'required|url',
             'published_year' => 'required',
             'is_showing' => 'required',
             'description' => 'required',
+            'genre' => 'required'
         ];
     }
 }
