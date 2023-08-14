@@ -70,7 +70,27 @@ class MovieController extends Controller
             return redirect()->route('admin.movies.index')->with(['flash_message' => '存在しない映画です。']);
         }
 
-        $movie->update($request->all());
+        $update_values = $request->all();
+
+        $genre_name = $request->input('genre');
+        $genre = Genre::where('name', $genre_name)->first();
+
+        $genre_id = null;
+        if ($genre !== null) {
+            $genre_id = $genre->id;
+        }
+
+        DB::transaction(function() use ($genre_id, $genre_name, $movie, $update_values) {
+            if ($genre_id === null) {
+                $genre = new Genre();
+                $genre->name = $genre_name;
+                $genre->save();
+                $genre_id = $genre->id;
+            }
+
+            $movie->genre_id = $genre_id;
+            $movie->update($update_values);
+        });
 
         return redirect()->route('admin.movies.index')->with(['flash_message' => '更新に成功しました。']);
     }
