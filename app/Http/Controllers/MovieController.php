@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isNull;
+
 class MovieController extends Controller
 {
     public function index(Request $request)
@@ -24,5 +26,16 @@ class MovieController extends Controller
 
         $movies = $query->paginate(20);
         return view('movies.index', ['movies' => $movies]);
+    }
+
+    public function show($id)
+    {
+        $movie = Movie::find($id);
+        
+        if (is_null($movie)) {
+            abort(404);
+        }
+
+        return view('movies.show', ['movie' => $movie]);
     }
 }

@@ -27,10 +27,13 @@ Route::get('/practice3', [PracticeController::class, 'sample3']);
 
 Route::get('/getPractice', [PracticeController::class, 'getPractice']);
 
-Route::get('/movies', [MovieController::class, 'index'])
-    ->name('movies.index');
 Route::get('/sheets', [SheetController::class, 'index'])
     ->name('sheets.index');
+
+Route::get('/movies', [MovieController::class, 'index'])
+    ->name('movies.index');
+Route::get('/movies/{id}', [MovieController::class, 'show'])
+    ->name('movies.show');
 
 Route::get('/admin/movies', [AdminMovieController::class, 'index'])
     ->name('admin.movies.index');
