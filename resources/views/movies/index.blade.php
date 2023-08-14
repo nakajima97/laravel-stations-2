@@ -26,5 +26,6 @@
       <li>画像URL：{{ $movie->image_url }}</li>
     @endforeach
   </ul>
+  {{ $movies->links() }}
 </body>
 </html>

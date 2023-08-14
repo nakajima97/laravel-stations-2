@@ -11,6 +11,8 @@ class MovieController extends Controller
     {
         $query = Movie::query();
 
+        // dd($request);
+
         $keyword = $request->input('keyword');
         if (!empty($keyword)) {
             $query->where('title', 'LIKE', '%' . $keyword . '%')
@@ -22,7 +24,7 @@ class MovieController extends Controller
             $query->where('is_showing', $is_showing);
         }
 
-        $movies = $query->get();
+        $movies = $query->paginate(20);
         return view('movies.index', ['movies' => $movies]);
     }
 }
