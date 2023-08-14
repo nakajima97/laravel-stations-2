@@ -24,14 +24,18 @@
         <input type="url" name="image_url" id="image_url" value="{{ $movie->image_url }}">
       </div>
       <div>
+        <label for="genre">ジャンル</label>
+        <input type="text" name="genre" id="genre" value="{{ $movie->genre->name }}">
+      </div>
+      <div>
         <label for="published_year">公開年</label>
         <input type="number" name="published_year" id="published_year" value="{{ $movie->published_year }}">
       </div>
       <div>
+        <input type="radio" name="is_showing" id="is_showing_yes" value="1" @if($movie->is_showing === 1) checked @endif>
         <label for="is_showing_yes">公開中</label>
-        <input type="radio" name="is_showing" id="is_showing_yes" value="1" @if($movie->is_showing === true) checked @endif>
+        <input type="radio" name="is_showing" id="is_showing_no" value="0" @if($movie->is_showing === 0) checked @endif>
         <label for="is_showing_no">公開前</label>
-        <input type="radio" name="is_showing" id="is_showing_no" value="0" @if($movie->is_showing === false) checked @endif>
       </div>
       <div>
         <label for="description">概要</label>
