@@ -26,9 +26,9 @@ Route::get('/practice2', [PracticeController::class, 'sample2']);
 Route::get('/practice3', [PracticeController::class, 'sample3']);
 
 Route::get('/getPractice', [PracticeController::class, 'getPractice']);
+
 Route::get('/movies', [MovieController::class, 'index'])
     ->name('movies.index');
-
 Route::get('/sheets', [SheetController::class, 'index'])
     ->name('sheets.index');
 
