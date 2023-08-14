@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         Movie::factory(100)->create();
 
         $this->call(SheetSeeder::class);
+        $this->call(ScheduleSeeder::class);
     }
 }
