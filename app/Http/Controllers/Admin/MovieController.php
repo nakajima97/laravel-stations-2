@@ -34,10 +34,10 @@ class MovieController extends Controller
         $movie->description = $request->input('description');
 
         $genre_name = $request->input('genre');
-        $genre = Genre::where('name', $genre_name)->get();
+        $genre = Genre::where('name', $genre_name)->first();
 
         $genre_id = null;
-        if (!$genre->isEmpty()) {
+        if ($genre !== null) {
             $genre_id = $genre->id;
         }
 
