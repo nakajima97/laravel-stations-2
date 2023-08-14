@@ -43,8 +43,8 @@
                 @foreach ($schedules as $key => $schedule)
                     <div>
                         <p>{{ $key + 1 }}</p>
-                        <p>上映開始時刻：{{ $schedule->start_time }}</p>
-                        <p>上映終了時刻：{{ $schedule->end_time }}</p>
+                        <p>上映開始時刻：{{ $schedule->start_time->format('H:i') }}</p>
+                        <p>上映終了時刻：{{ $schedule->end_time->format('H:i') }}</p>
                     </div>
                 @endforeach
             @endif

@@ -32,7 +32,7 @@ class MovieController extends Controller
     public function show($id)
     {
         $movie = Movie::find($id);
-        
+
         if (is_null($movie)) {
             abort(404);
         }
