@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\isNull;
 
 class MovieController extends Controller
 {
@@ -24,5 +27,20 @@ class MovieController extends Controller
 
         $movies = $query->paginate(20);
         return view('movies.index', ['movies' => $movies]);
+    }
+
+    public function show($id)
+    {
+        $movie = Movie::find($id);
+
+        if (is_null($movie)) {
+            abort(404);
+        }
+
+        $schedules = Schedule::where('movie_id', $movie->id)
+            ->orderBy('start_time')
+            ->get();
+
+        return view('movies.show', ['movie' => $movie, 'schedules' => $schedules]);
     }
 }
