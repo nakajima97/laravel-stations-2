@@ -25,7 +25,7 @@ class AddUniqueTitleToMovies extends Migration
     public function down()
     {
         Schema::table('movies', function (Blueprint $table) {
-            $table->dropUnique('title');
+            $table->dropUnique(['title']);
         });
     }
 }

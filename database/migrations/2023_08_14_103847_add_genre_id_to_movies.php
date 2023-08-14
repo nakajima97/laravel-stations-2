@@ -30,8 +30,8 @@ class AddGenreIdToMovies extends Migration
     public function down()
     {
         Schema::table('movies', function (Blueprint $table) {
-            $table->dropForeign('movie_id');
-            $table->dropColumn('genre_is');
+            $table->dropForeign(['genre_id']);
+            $table->dropColumn('genre_id');
         });
     }
 }
