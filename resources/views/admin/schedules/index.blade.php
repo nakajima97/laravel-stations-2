@@ -14,7 +14,7 @@
         <h2>{{ $movie->id }} {{$movie->title}}</h2>
         <ul>
         @foreach ($movie->schedules as $schedule)
-          <li>開始時刻；{{ $schedule->start_time }}　終了時刻：{{ $schedule->end_time }}</li>
+          <li><a href="{{ route('admin.schedules.show', $schedule->id) }}">開始時刻；{{ $schedule->start_time }}　終了時刻：{{ $schedule->end_time }}</a></li>
         @endforeach
       </ul>
     @endif

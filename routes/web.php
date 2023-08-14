@@ -50,3 +50,5 @@ Route::delete('/admin/movies/{id}/destroy', [AdminMovieController::class, 'destr
     ->name('admin.movies.destroy');
 Route::get('/admin/schedules', [AdminScheduleController::class, 'index'])
     ->name('admin.schedules.index');
+Route::get('/admin/schedules/{id}', [AdminScheduleController::class, 'show'])
+    ->name('admin.schedules.show');
