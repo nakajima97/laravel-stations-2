@@ -31,10 +31,8 @@ Route::get('/getPractice', [PracticeController::class, 'getPractice']);
 Route::get('/sheets', [SheetController::class, 'index'])
     ->name('sheets.index');
 
-Route::get('/movies', [MovieController::class, 'index'])
-    ->name('movies.index');
-Route::get('/movies/{id}', [MovieController::class, 'show'])
-    ->name('movies.show');
+Route::get('/admin/movies/{id}/schedules/create', [AdminScheduleController::class, 'create'])
+    ->name('admin.movies.schedules.create');
 
 Route::get('/admin/movies', [AdminMovieController::class, 'index'])
     ->name('admin.movies.index');
@@ -50,5 +48,12 @@ Route::delete('/admin/movies/{id}/destroy', [AdminMovieController::class, 'destr
     ->name('admin.movies.destroy');
 Route::get('/admin/schedules', [AdminScheduleController::class, 'index'])
     ->name('admin.schedules.index');
+Route::post('/admin/schedules/', [AdminScheduleController::class, 'store'])
+    ->name('admin.schedules.store');
 Route::get('/admin/schedules/{id}', [AdminScheduleController::class, 'show'])
     ->name('admin.schedules.show');
+
+Route::get('/movies', [MovieController::class, 'index'])
+    ->name('movies.index');
+Route::get('/movies/{id}', [MovieController::class, 'show'])
+    ->name('movies.show');

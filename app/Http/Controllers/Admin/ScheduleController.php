@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Movie;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ScheduleController extends Controller
 {
@@ -25,5 +25,27 @@ class ScheduleController extends Controller
         }
 
         return view('admin.schedules.show', ['schedule' => $schedule]);
+    }
+
+    public function create($id)
+    {
+        return view('admin.schedules.create', ['id' => $id]);
+    }
+
+    public function store(Request $request)
+    {
+        $movie = Movie::find($request->id);
+
+        if ($movie === null) {
+            abort(404);
+        }
+
+        Schedule::create([
+            'movie_id' => $movie->id,
+            'start_time' => $request->input('start_time_date') . ' ' . $request->input('start_time_time'),
+            'end_time' => $request->input('end_time_date') . ' ' . $request->input('end_time_time'),
+        ]);
+
+        return redirect()->route('admin.schedules.index');
     }
 }
