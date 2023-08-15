@@ -16,7 +16,6 @@
             <li>{{ $error }}</li>
         @endforeach
         <div>
-            <label for="title">映画タイトル</label>
             <p>映画タイトル:{{ $movie->title }}</p>
         </div>
         <div>
@@ -36,7 +35,8 @@
             <textarea name="description" id="description" cols="30" rows="10" readonly>{{ $movie->description }}</textarea>
         </div>
         <div>
-            <p>スケジュール</p>
+            <h1>スケジュール</h1>
+            <a href="{{ route('admin.movies.schedules.create', $movie->id) }}">スケジュール追加</a>
             @if ($schedules->isEmpty())
                 <p>スケジュールは設定されていないです。</p>
             @else
