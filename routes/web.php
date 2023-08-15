@@ -46,6 +46,9 @@ Route::patch('/admin/movies/{id}/update', [AdminMovieController::class, 'update'
     ->name('admin.movies.update');
 Route::delete('/admin/movies/{id}/destroy', [AdminMovieController::class, 'destroy'])
     ->name('admin.movies.destroy');
+Route::get('/admin/movies/{id}', [AdminMovieController::class, 'show'])
+    ->name('admin.movies.show');
+
 Route::get('/admin/schedules', [AdminScheduleController::class, 'index'])
     ->name('admin.schedules.index');
 Route::post('/admin/schedules/', [AdminScheduleController::class, 'store'])
