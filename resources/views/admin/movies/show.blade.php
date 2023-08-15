@@ -40,12 +40,10 @@
             @if ($schedules->isEmpty())
                 <p>スケジュールは設定されていないです。</p>
             @else
-                @foreach ($schedules as $key => $schedule)
-                    <div>
-                        <p>{{ $key + 1 }}</p>
-                        <p>上映開始時刻：{{ $schedule->start_time->format('H:i') }}</p>
-                        <p>上映終了時刻：{{ $schedule->end_time->format('H:i') }}</p>
-                    </div>
+                @foreach ($schedules as $schedule)
+                    <li><a
+                            href="{{ route('admin.schedules.show', $schedule->id) }}">開始時刻；{{ $schedule->start_time }}　終了時刻：{{ $schedule->end_time }}</a>
+                    </li>
                 @endforeach
             @endif
         </div>
