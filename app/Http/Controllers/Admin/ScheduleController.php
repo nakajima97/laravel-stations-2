@@ -6,6 +6,7 @@ use App\Models\Movie;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreScheduleRequest;
 
 class ScheduleController extends Controller
 {
@@ -32,9 +33,9 @@ class ScheduleController extends Controller
         return view('admin.schedules.create', ['id' => $id]);
     }
 
-    public function store(Request $request)
+    public function store(StoreScheduleRequest $request, $movie_id)
     {
-        $movie = Movie::find($request->id);
+        $movie = Movie::find($movie_id);
 
         if ($movie === null) {
             abort(404);
@@ -46,7 +47,7 @@ class ScheduleController extends Controller
             'end_time' => $request->input('end_time_date') . ' ' . $request->input('end_time_time'),
         ]);
 
-        return redirect()->route('admin.schedules.index');
+        return redirect()->route('admin.movies.show', $movie->id);
     }
 
     public function edit($scheduleId)
@@ -60,7 +61,7 @@ class ScheduleController extends Controller
         return view('admin.schedules.edit', ['schedule' => $schedule]);
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreScheduleRequest $request, $id)
     {
         $schedule = Schedule::find($id);
 

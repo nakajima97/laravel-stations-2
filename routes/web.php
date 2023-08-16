@@ -31,6 +31,8 @@ Route::get('/getPractice', [PracticeController::class, 'getPractice']);
 Route::get('/sheets', [SheetController::class, 'index'])
     ->name('sheets.index');
 
+Route::post('/admin/movies/{movieId}/schedules/store', [AdminScheduleController::class, 'store'])
+    ->name('admin.movies.schedules.store');
 Route::get('/admin/movies/{id}/schedules/create', [AdminScheduleController::class, 'create'])
     ->name('admin.movies.schedules.create');
 
@@ -51,11 +53,9 @@ Route::get('/admin/movies/{id}', [AdminMovieController::class, 'show'])
 
 Route::get('/admin/schedules', [AdminScheduleController::class, 'index'])
     ->name('admin.schedules.index');
-Route::post('/admin/schedules/', [AdminScheduleController::class, 'store'])
-    ->name('admin.schedules.store');
 Route::get('/admin/schedules/{scheduleId}/edit', [AdminScheduleController::class, 'edit'])
     ->name('admin.schedules.edit');
-Route::PATCh('/admin/schedules/{id}/update', [AdminScheduleController::class, 'update'])
+Route::patch('/admin/schedules/{id}/update', [AdminScheduleController::class, 'update'])
     ->name('admin.schedules.update');
 Route::delete('/admin/schedules/{id}/destroy', [AdminScheduleController::class, 'destroy'])
     ->name('admin.schedules.destroy');

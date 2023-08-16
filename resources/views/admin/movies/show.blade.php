@@ -28,7 +28,7 @@
             <p>公開年:{{ $movie->published_year }}</p>
         </div>
         <div>
-            <p>公開状況：{{ $movie->is_showing ? '公開中' : '公開予定' }}</p>
+            <p>公開状況：{{ $movie->is_showing ? '上映中' : '上映予定' }}</p>
         </div>
         <div>
             <label for="description">概要</label>
