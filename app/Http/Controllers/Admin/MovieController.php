@@ -19,6 +19,17 @@ class MovieController extends Controller
         return view('admin.movies.index', ['movies' => $movies]);
     }
 
+    public function show($id)
+    {
+        $movie = Movie::find($id);
+
+        if ($movie === null) {
+            abort(404);
+        }
+
+        return view('admin.movies.show', ['movie' => $movie, 'schedules' => $movie->schedules]);
+    }
+
     public function create()
     {
         return view('admin.movies.create');

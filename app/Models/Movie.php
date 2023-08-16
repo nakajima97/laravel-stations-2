@@ -17,12 +17,12 @@ class Movie extends Model
         'description'
     ];
 
-    public function Genre()
+    public function genre()
     {
         return $this->belongsTo(Genre::class);
     }
 
-    public function Schedules()
+    public function schedules()
     {
         return $this->hasMany(Schedule::class);
     }

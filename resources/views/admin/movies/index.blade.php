@@ -30,9 +30,9 @@
         <tbody>
             @foreach ($movies as $movie)
                 <tr>
-                    <td>{{ $movie->title }}</td>
+                    <td><a href="{{ route('admin.movies.show', $movie->id) }}">{{ $movie->title }}</a></td>
                     <td>{{ $movie->image_url }}</td>
-                    <td>{{ $movie->genre->name }}</td>
+                    <td>{{ $movie->genre !== null ? $movie->genre->name : 'ジャンル無し' }}</td>
                     <td>{{ $movie->published_year }}</td>
                     <td>{{ $movie->is_showing ? '上映中' : '上映予定' }}</td>
                     <td>{{ $movie->description }}</td>

@@ -25,7 +25,7 @@
       </div>
       <div>
         <label for="genre">ジャンル</label>
-        <input type="text" name="genre" id="genre" value="{{ $movie->genre->name }}">
+        <input type="text" name="genre" id="genre" value="{{ $movie->genre !== null ? $movie->genre->name : 'ジャンル無し' }}">
       </div>
       <div>
         <label for="published_year">公開年</label>
