@@ -18,20 +18,34 @@
                     <th>終了時刻</th>
                     <th>詳細</th>
                     <th>編集</th>
+                    <th>削除</th>
                 </thead>
                 <tbody>
-                @foreach ($movie->schedules as $schedule)
-                    <tr>
-                      <td>{{ $schedule->start_time }}</td>
-                      <td>{{ $schedule->end_time }}</td>
-                      <td><a href="{{ route('admin.schedules.show', $schedule->id) }}">詳細画面へ</a></td>
-                      <td><a href="{{ route('admin.schedules.edit', $schedule->id) }}">編集画面へ</a></td>
-                    </tr>
-                @endforeach
-              </tbody>
+                    @foreach ($movie->schedules as $schedule)
+                        <tr>
+                            <td>{{ $schedule->start_time }}</td>
+                            <td>{{ $schedule->end_time }}</td>
+                            <td><a href="{{ route('admin.schedules.show', $schedule->id) }}">詳細画面へ</a></td>
+                            <td><a href="{{ route('admin.schedules.edit', $schedule->id) }}">編集画面へ</a></td>
+                            <td>
+                                <form method="post" action="{{ route('admin.schedules.destroy', $schedule->id) }}"
+                                    style="display: inline;">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="delete-button" onclick="return confirmDelete();">削除</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
         @endif
     @endforeach
+    <script>
+        function confirmDelete() {
+            return confirm('本当に削除しますか？');
+        }
+    </script>
 </body>
 
 </html>

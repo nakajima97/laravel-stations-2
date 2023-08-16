@@ -70,4 +70,17 @@ class ScheduleController extends Controller
 
         return redirect()->route('admin.schedules.index');
     }
+
+    public function destroy($id)
+    {
+        $schedule = Schedule::find($id);
+
+        if ($schedule === null) {
+            abort(404);
+        }
+
+        $schedule->delete();
+
+        return redirect()->route('admin.schedules.index');
+    }
 }
