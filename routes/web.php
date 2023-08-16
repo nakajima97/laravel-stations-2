@@ -53,8 +53,12 @@ Route::get('/admin/schedules', [AdminScheduleController::class, 'index'])
     ->name('admin.schedules.index');
 Route::post('/admin/schedules/', [AdminScheduleController::class, 'store'])
     ->name('admin.schedules.store');
+Route::get('/admin/schedules/{scheduleId}/edit', [AdminScheduleController::class, 'edit'])
+    ->name('admin.schedules.edit');
 Route::get('/admin/schedules/{id}', [AdminScheduleController::class, 'show'])
     ->name('admin.schedules.show');
+Route::PATCh('/admin/schedules/{id}/update', [AdminScheduleController::class, 'update'])
+    ->name('admin.schedules.update');
 
 Route::get('/movies', [MovieController::class, 'index'])
     ->name('movies.index');

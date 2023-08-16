@@ -48,4 +48,26 @@ class ScheduleController extends Controller
 
         return redirect()->route('admin.schedules.index');
     }
+
+    public function edit($scheduleId)
+    {
+        $schedule = Schedule::find($scheduleId);
+
+        if ($schedule === null) {
+            abort(404);
+        }
+
+        return view('admin.schedules.edit', ['schedule' => $schedule]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $schedule = Schedule::find($id);
+
+        $schedule->start_time = $request->input('start_time_date') . ' ' . $request->input('start_time_time');
+        $schedule->end_time = $request->input('end_time_date') . ' ' . $request->input('end_time_time');
+        $schedule->save();
+
+        return redirect()->route('admin.schedules.index');
+    }
 }
