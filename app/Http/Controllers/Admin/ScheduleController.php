@@ -7,6 +7,10 @@ use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreScheduleRequest;
+use App\Rules\EndTimeAfterStartRule;
+use App\Rules\StartTimeAndEndTimeDifference5MinuteRule;
+use App\Rules\StartTimeAndEndTimeDiffrence5MiuteRule;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -35,10 +39,35 @@ class ScheduleController extends Controller
 
     public function store(StoreScheduleRequest $request, $movie_id)
     {
+        $request->validate([
+            'start_time_date' => [new EndTimeAfterStartRule],
+            'start_time_time' => [new EndTimeAfterStartRule],
+            'end_time_date' => [new EndTimeAfterStartRule],
+            'end_time_time' => [new EndTimeAfterStartRule]
+        ]);
+
+        $request->validate([
+            'start_time_time' => [new StartTimeAndEndTimeDifference5MinuteRule],
+            'end_time_time' => [new StartTimeAndEndTimeDifference5MinuteRule]
+        ]);
+
         $movie = Movie::find($movie_id);
 
         if ($movie === null) {
             abort(404);
+        }
+
+        $start_time = Carbon::parse($request->input('start_time_date') . $request->input('start_time_time'));
+        $end_time = Carbon::parse($request->input('end_time_date') . $request->input('end_time_time'));
+
+        // 開始時刻 < 終了時刻
+        if ($end_time->lt($start_time)) {
+            return redirect()->route('admin.movies.schedules.create', $movie_id)->with('flash_message', '終了時刻が開始時刻の前になっています。');
+        }
+
+        // 差が５分未満
+        if ($end_time->diffInMinutes($start_time) < 5) {
+            return redirect()->route('admin.movies.schedules.create', $movie_id)->with('flash_message', '差が５分未満です。');
         }
 
         Schedule::create([
