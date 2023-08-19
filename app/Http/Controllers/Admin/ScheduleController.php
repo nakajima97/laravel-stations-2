@@ -50,6 +50,11 @@ class ScheduleController extends Controller
             return redirect()->route('admin.movies.schedules.create', $movie_id)->with('flash_message', '終了時刻が開始時刻の前になっています。');
         }
 
+        // 差が５分未満
+        if ($end_time->diffInMinutes($start_time) < 5) {
+            return redirect()->route('admin.movies.schedules.create', $movie_id)->with('flash_message', '差が５分未満です。');
+        }
+
         Schedule::create([
             'movie_id' => $movie->id,
             'start_time' => $request->input('start_time_date') . ' ' . $request->input('start_time_time'),
