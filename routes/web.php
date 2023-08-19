@@ -6,6 +6,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\Admin\MovieController as AdminMovieController;
 use App\Http\Controllers\Admin\ScheduleController as AdminScheduleController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ScheduleSheetController;
 use App\Http\Controllers\SheetController;
 
 /*
@@ -68,5 +69,5 @@ Route::get('/movies', [MovieController::class, 'index'])
 Route::get('/movies/{id}', [MovieController::class, 'show'])
     ->name('movies.show');
 
-Route::get('/movies/{movie_id}/schedules/{schedule_id}/sheets', [ReservationController::class, 'create'])
-    ->name('reservations.create');
+Route::get('/movies/{movie_id}/schedules/{schedule_id}/sheets', [ScheduleSheetController::class, 'index'])
+    ->name('schedules.sheets.index');
