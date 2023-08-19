@@ -7,6 +7,7 @@ use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreScheduleRequest;
+use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -39,6 +40,14 @@ class ScheduleController extends Controller
 
         if ($movie === null) {
             abort(404);
+        }
+
+        $start_time = Carbon::parse($request->input('start_time_date') . $request->input('start_time_time'));
+        $end_time = Carbon::parse($request->input('end_time_date') . $request->input('end_time_time'));
+
+        // 開始時刻 < 終了時刻
+        if ($end_time->lt($start_time)) {
+            return redirect()->route('admin.movies.schedules.create', $movie_id)->with('flash_message', '終了時刻が開始時刻の前になっています。');
         }
 
         Schedule::create([
