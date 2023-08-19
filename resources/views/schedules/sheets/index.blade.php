@@ -9,25 +9,22 @@
 </head>
 
 <body>
-    <form action="{{ route('admin.movies.store') }}" method="POST">
-      @csrf
-      @foreach ($errors->all() as $error)
-        <li>{{$error}}</li>
-      @endforeach
-      <table>
+    <table>
         <thead>
-          <th colspan="5">スクリーン</th>
+            <th colspan="5">スクリーン</th>
         </thead>
         <tbody>
-          @foreach ($sheet_map as $key => $sheets)
-            <tr>
-              @foreach ($sheets as $sheet)
-                <td>{{ $key }}-{{ $sheet }}</td>
-              @endforeach
-            </tr>
-          @endforeach
+            @foreach ($sheet_map as $key => $sheets)
+                <tr>
+                    @foreach ($sheets as $sheet)
+                        <td><a
+                                href="{{ route('movies.schedules.reservations.create', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id, 'sheet_id' => $sheet['id'], 'date' => $date]) }}">{{ $key }}-{{ $sheet['column'] }}</a>
+                        </td>
+                    @endforeach
+                </tr>
+            @endforeach
         </tbody>
-    </form>
+    </table>
 </body>
 
 </html>
