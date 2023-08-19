@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\EndTimeAfterStartRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreScheduleRequest extends FormRequest
@@ -28,7 +29,7 @@ class StoreScheduleRequest extends FormRequest
             'start_time_date' => 'required|date_format:Y-m-d',
             'start_time_time' => 'required|date_format:H:i',
             'end_time_date' => 'required|date_format:Y-m-d',
-            'end_time_time' => 'required|date_format:H:i'
+            'end_time_time' => ['required','date_format:H:i']
         ];
     }
 }

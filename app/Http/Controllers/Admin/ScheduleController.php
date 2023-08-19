@@ -7,6 +7,9 @@ use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreScheduleRequest;
+use App\Rules\EndTimeAfterStartRule;
+use App\Rules\StartTimeAndEndTimeDifference5MinuteRule;
+use App\Rules\StartTimeAndEndTimeDiffrence5MiuteRule;
 use Carbon\Carbon;
 
 class ScheduleController extends Controller
@@ -36,6 +39,18 @@ class ScheduleController extends Controller
 
     public function store(StoreScheduleRequest $request, $movie_id)
     {
+        $request->validate([
+            'start_time_date' => [new EndTimeAfterStartRule],
+            'start_time_time' => [new EndTimeAfterStartRule],
+            'end_time_date' => [new EndTimeAfterStartRule],
+            'end_time_time' => [new EndTimeAfterStartRule]
+        ]);
+
+        $request->validate([
+            'start_time_time' => [new StartTimeAndEndTimeDifference5MinuteRule],
+            'end_time_time' => [new StartTimeAndEndTimeDifference5MinuteRule]
+        ]);
+
         $movie = Movie::find($movie_id);
 
         if ($movie === null) {
