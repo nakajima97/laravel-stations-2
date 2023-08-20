@@ -66,7 +66,9 @@ Route::get('/admin/schedules/{id}', [AdminScheduleController::class, 'show'])
 
 Route::get('/movies/{movie_id}/schedules/{schedule_id}/sheets', [ScheduleSheetController::class, 'index'])
     ->name('schedules.sheets.index');
-Route::post('/movies/:movie_id/schedules/:schedule_id/reservations/create', [ReservationController::class, 'store'])
+Route::post('/movies/:movie_id/schedules/:schedule_id/reservations/create', [ReservationController::class, 'create'])
+    ->name('reservations.create');
+Route::post('/reservations/store', [ReservationController::class, 'store'])
     ->name('reservations.store');
 
 Route::get('/movies', [MovieController::class, 'index'])

@@ -14,11 +14,7 @@
       <input type="hidden" name="movie_id" value="{{ $movie_id }}">
       <input type="hidden" name="schedule_id" value="{{ $schedule_id }}">
       <input type="hidden" name="sheet_id" value="{{ $sheet_id }}">
-
-      <div>
-        <label for="date">日付</label>
-        <input id="date" type="text" name="date" value="{{ $date }}" readonly>
-      </div>
+      <input id="date" type="hidden" name="date" value="{{ $date }}" readonly>
 
       <div>
         <label for="name">予約者メールアドレス</label>

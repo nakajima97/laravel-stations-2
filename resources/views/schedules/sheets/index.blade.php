@@ -18,7 +18,7 @@
                 <tr>
                     @foreach ($sheets as $sheet)
                         <td><a
-                                href="{{ route('movies.schedules.reservations.create', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id, 'sheet_id' => $sheet['id'], 'date' => $date]) }}">{{ $key }}-{{ $sheet['column'] }}</a>
+                                href="{{ route('movies.schedules.reservations.create', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id, 'sheetId' => $sheet['id'], 'date' => $date]) }}">{{ $key }}-{{ $sheet['column'] }}</a>
                         </td>
                     @endforeach
                 </tr>

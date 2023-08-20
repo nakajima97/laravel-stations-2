@@ -17,6 +17,10 @@ class ScheduleSheetController extends Controller
             abort(404);
         }
 
+        if ($date === null) {
+            abort(400);
+        }
+
         $sheet_map = Sheet::all()->mapToGroups(function ($item, $key) {
             return [$item['row'] => ['column' => $item['column'], 'id' => $item['id']]];
         });
