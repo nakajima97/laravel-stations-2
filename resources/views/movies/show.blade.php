@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>映画登録</title>
+    <title>映画詳細</title>
 </head>
 
 <body>
@@ -45,6 +45,7 @@
                         <p>{{ $key + 1 }}</p>
                         <p>上映開始時刻：{{ $schedule->start_time->format('H:i') }}</p>
                         <p>上映終了時刻：{{ $schedule->end_time->format('H:i') }}</p>
+                        <a href="{{ route('schedules.sheets.index', ['movie_id' => $movie->id, 'schedule_id' => $schedule->id, 'date' => $schedule->start_time->toDateString()]) }}">座席を予約する</a>
                     </div>
                 @endforeach
             @endif
