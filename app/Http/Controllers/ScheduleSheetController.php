@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 
 class ScheduleSheetController extends Controller
 {
-    public function index($movie_id, $schedule_id)
+    public function index(Request $request, $movie_id, $schedule_id)
     {
         $schedule = Schedule::find($schedule_id);
+        $date = $request->query('date');
 
         if ($schedule === null) {
             abort(404);
@@ -21,6 +22,6 @@ class ScheduleSheetController extends Controller
         });
 
 
-        return view('schedules.sheets.index', ['sheet_map' => $sheet_map, 'movie_id' => $movie_id, 'schedule_id' => $schedule_id, 'date' => $schedule->start_time]);
+        return view('schedules.sheets.index', ['sheet_map' => $sheet_map, 'movie_id' => $movie_id, 'schedule_id' => $schedule_id, 'date' => $date]);
     }
 }

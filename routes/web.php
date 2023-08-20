@@ -64,13 +64,15 @@ Route::delete('/admin/schedules/{id}/destroy', [AdminScheduleController::class, 
 Route::get('/admin/schedules/{id}', [AdminScheduleController::class, 'show'])
     ->name('admin.schedules.show');
 
-Route::get('/movies/{movie_id}/schedules/{schedule_id}/reservations/create', [ReservationController::class, 'create'])
-    ->name('movies.schedules.reservations.create');
-
 Route::get('/movies/{movie_id}/schedules/{schedule_id}/sheets', [ScheduleSheetController::class, 'index'])
     ->name('schedules.sheets.index');
+Route::post('/movies/:movie_id/schedules/:schedule_id/reservations/create', [ReservationController::class, 'store'])
+    ->name('reservations.store');
 
 Route::get('/movies', [MovieController::class, 'index'])
     ->name('movies.index');
 Route::get('/movies/{id}', [MovieController::class, 'show'])
     ->name('movies.show');
+
+Route::get('/movies/{movie_id}/schedules/{schedule_id}/reservations/create', [ReservationController::class, 'create'])
+    ->name('movies.schedules.reservations.create');
