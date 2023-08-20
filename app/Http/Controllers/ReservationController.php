@@ -23,6 +23,12 @@ class ReservationController extends Controller
 
     public function store(ReservationRequest $request)
     {
+      $duplicate_reservation = Reservation::where('sheet_id', $request->input('sheet_id'))->where('schedule_id', $request->input('schedule_id'))->get();
+
+      if ($duplicate_reservation->count() > 0) {
+        return redirect()->route('schedules.sheets.index', ['movie_id' => $request->input('movie_id'), 'schedule_id' => $request->input('schedule_id'),'date' => $request->input('date')])->with(['flash_message' => 'その座席はすでに予約済みです']);
+      }
+
       Reservation::create($request->validated());
 
       $schedule = Schedule::find($request->schedule_id);
