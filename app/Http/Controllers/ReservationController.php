@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ReservationRequest;
-use App\Models\Movie;
 use App\Models\Reservation;
-use App\Models\Sheet;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -26,6 +25,9 @@ class ReservationController extends Controller
     {
       Reservation::create($request->validated());
 
-      return redirect()->route('movies.show', ['id' => $request->movie_id]);
+      $schedule = Schedule::find($request->schedule_id);
+      $movie_id = $schedule->movie->id;
+
+      return redirect()->route('movies.show', ['id' => $movie_id]);
     }
 }
