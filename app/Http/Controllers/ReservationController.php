@@ -18,6 +18,12 @@ class ReservationController extends Controller
         abort(400);
       }
 
+      $reservation = Reservation::where('schedule_id', $schedule_id)->where('sheet_id', $sheet_id)->get();
+
+      if (!$reservation->isEmpty()) {
+        abort(400);
+      }
+
       return view('reservations.create', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id, 'date' => $date, 'sheet_id' => $sheet_id]);
     }
 
