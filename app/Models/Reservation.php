@@ -16,4 +16,9 @@ class Reservation extends Model
         'name',
         'email'
     ];
+
+    public function sheet()
+    {
+        return $this->belongsTo(Sheet::class);
+    }
 }

@@ -19,12 +19,19 @@
             <th colspan="5">スクリーン</th>
         </thead>
         <tbody>
-            @foreach ($sheet_map as $key => $sheets)
+            @foreach ($sheets as $sheet)
                 <tr>
-                    @foreach ($sheets as $sheet)
-                        <td><a
-                                href="{{ route('movies.schedules.reservations.create', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id, 'sheetId' => $sheet['id'], 'date' => $date]) }}">{{ $key }}-{{ $sheet['column'] }}</a>
-                        </td>
+                    @foreach ($sheet as $s)
+                        @if ($s->reservations->isEmpty())
+                            <td class="bg-gray-400">
+                                <a
+                                    href="{{ route('movies.schedules.reservations.create', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id, 'sheetId' => $s['id'], 'date' => $date]) }}">{{ $s->row }}-{{ $s->column }}</a>
+                            </td>
+                        @else
+                            <td>
+                                {{ $s->row }}-{{ $s->column }}
+                            </td>
+                        @endif
                     @endforeach
                 </tr>
             @endforeach
