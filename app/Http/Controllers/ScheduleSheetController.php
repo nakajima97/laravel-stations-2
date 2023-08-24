@@ -21,21 +21,13 @@ class ScheduleSheetController extends Controller
             abort(400);
         }
 
-        $sheet_map = Sheet::with(['reservations' => function($query) use ($schedule_id) {
-            $query->where('schedule_id', $schedule_id);
-        }])
-        ->get()->mapToGroups(function ($item, $key) {
-            return [$item['row'] => ['column' => $item['column'], 'id' => $item['id'], 'is_reservable' => $item['schedules']]];
-        });
-
         // sheetを返した際にviewがいい感じに表示されるようにする
-        $sheet = Sheet::with(['reservations' => function($query) use ($schedule_id) {
+        $sheets = Sheet::with(['reservations' => function($query) use ($schedule_id) {
             $query->where('schedule_id', $schedule_id);
         }])
-        ->get();
+        ->get()
+        ->groupBy('row');
 
-        dd($sheet);
-
-        return view('schedules.sheets.index', ['sheet_map' => $sheet_map, 'movie_id' => $movie_id, 'schedule_id' => $schedule_id, 'date' => $date]);
+        return view('schedules.sheets.index', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id, 'date' => $date, 'sheets' => $sheets]);
     }
 }
