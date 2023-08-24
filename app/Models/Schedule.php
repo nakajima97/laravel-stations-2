@@ -20,8 +20,13 @@ class Schedule extends Model
         'end_time' => 'datetime',
     ];
 
-    public function Movie()
+    public function movie()
     {
         return $this->belongsTo(Movie::class);
+    }
+
+    public function reservation()
+    {
+        return $this->hasMany(Reservation::class);
     }
 }
