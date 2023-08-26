@@ -44,7 +44,34 @@ class ReservationController extends Controller
         $reservation = Reservation::find($id);
 
         $sheets = Sheet::all();
+        $schedules = Schedule::all();
 
-        return view('admin.reservations.edit', ['reservation' => $reservation, 'sheets' => $sheets]);
+        return view('admin.reservations.edit', ['reservation' => $reservation, 'sheets' => $sheets, 'schedules' => $schedules]);
+    }
+
+    public function update(ReservationRequest $request, $id)
+    {
+        $reservation = Reservation::find($id);
+
+        if ($reservation === null) {
+            abort(404);
+        }
+
+        $reservation->update($request->all());
+
+        return redirect()->to(route('admin.reservations.index'));
+    }
+
+    public function destroy($id)
+    {
+        $reservation = Reservation::find($id);
+
+        if ($reservation === null) {
+            abort(404);
+        }
+
+        $reservation->delete();
+
+        return redirect()->to(route('admin.reservations.index'));
     }
 }
