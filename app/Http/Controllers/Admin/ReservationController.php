@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationRequest;
 use App\Models\Reservation;
 use App\Models\Schedule;
+use App\Models\Sheet;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -38,10 +39,12 @@ class ReservationController extends Controller
         return redirect()->to(route('admin.reservations.index'));
     }
 
-    public function show($id)
+    public function edit($id)
     {
         $reservation = Reservation::find($id);
 
-        return view('admin.reservations.show', ['reservation' => $reservation]);
+        $sheets = Sheet::all();
+
+        return view('admin.reservations.edit', ['reservation' => $reservation, 'sheets' => $sheets]);
     }
 }
