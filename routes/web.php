@@ -5,9 +5,11 @@ use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\Admin\MovieController as AdminMovieController;
 use App\Http\Controllers\Admin\ScheduleController as AdminScheduleController;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ScheduleSheetController;
 use App\Http\Controllers\SheetController;
+use Tests\Feature\LaravelStations\Station19\AdminReservationTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,3 +80,16 @@ Route::get('/movies/{id}', [MovieController::class, 'show'])
 
 Route::get('/movies/{movie_id}/schedules/{schedule_id}/reservations/create', [ReservationController::class, 'create'])
     ->name('movies.schedules.reservations.create');
+
+Route::get('/admin/reservations/', [AdminReservationController::class, 'index'])
+    ->name('admin.reservations.index');
+Route::get('/admin/reservations/create', [AdminReservationController::class, 'create'])
+    ->name('admin.reservations.create');
+Route::post('/admin/reservations', [AdminReservationController::class, 'store'])
+    ->name('admin.reservations.store');
+Route::get('/admin/reservations/{id}/edit', [AdminReservationController::class, 'edit'])
+    ->name('admin.reservations.edit');
+Route::patch('/admin/reservations/{id}', [AdminReservationController::class, 'update'])
+    ->name('admin.reservations.update');
+Route::delete('/admin/reservations/{id}', [AdminReservationController::class, 'destroy'])
+    ->name('admin.reservations.destroy');
