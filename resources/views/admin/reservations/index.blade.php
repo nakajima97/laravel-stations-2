@@ -9,6 +9,11 @@
 </head>
 
 <body>
+  @if (session('flash_message'))
+    <div>
+      {{ session('flash_message') }}
+    </div>
+  @endif
   <table>
     <thead>
       <tr>
