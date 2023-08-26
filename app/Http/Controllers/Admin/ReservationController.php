@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminReservationRequest;
 use App\Http\Requests\ReservationRequest;
 use App\Models\Movie;
 use App\Models\Reservation;
@@ -12,6 +13,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function GuzzleHttp\Promise\all;
+
 class ReservationController extends Controller
 {
     public function index()
@@ -20,7 +23,6 @@ class ReservationController extends Controller
             ->join('schedules', 'reservations.schedule_id', 'schedules.id')
             ->join('sheets', 'reservations.sheet_id', 'sheets.id')
             ->join('movies', 'schedules.movie_id', 'movies.id')
-            ->where('movies.is_showing', 1)
             ->where('schedules.end_time', '>', Carbon::now())
             ->get();
 
@@ -29,10 +31,13 @@ class ReservationController extends Controller
 
     public function create()
     {
-        return view('admin.reservations.create');
+        $sheets = Sheet::all();
+        $schedules = Schedule::all();
+
+        return view('admin.reservations.create', ['sheets' => $sheets, 'schedules' => $schedules]);
     }
 
-    public function store(ReservationRequest $request)
+    public function store(AdminReservationRequest $request)
     {
         $schedule = Schedule::find($request->schedule_id);
         $movie_id = $schedule->movie->id;
@@ -43,7 +48,13 @@ class ReservationController extends Controller
             return redirect()->route('admin.reservations.index')->with(['flash_message' => 'その座席はすでに予約済みです']);
         }
 
-        Reservation::create($request->all());
+        $values = $request->all();
+
+        if ($request->input('date') === null) {
+            $values['date'] = Carbon::now();
+        }
+
+        Reservation::create($values);
 
         return redirect()->to(route('admin.reservations.index'));
     }
@@ -58,13 +69,15 @@ class ReservationController extends Controller
         return view('admin.reservations.edit', ['reservation' => $reservation, 'sheets' => $sheets, 'schedules' => $schedules]);
     }
 
-    public function update(ReservationRequest $request, $id)
+    public function update(AdminReservationRequest $request, $id)
     {
         $reservation = Reservation::find($id);
 
         if ($reservation === null) {
             abort(404);
         }
+
+        // dd($request->all(), $reservation);
 
         $reservation->update($request->all());
 

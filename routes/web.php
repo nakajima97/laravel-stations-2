@@ -87,7 +87,7 @@ Route::get('/admin/reservations/create', [AdminReservationController::class, 'cr
     ->name('admin.reservations.create');
 Route::post('/admin/reservations', [AdminReservationController::class, 'store'])
     ->name('admin.reservations.store');
-Route::get('/admin/reservations/{id}', [AdminReservationController::class, 'edit'])
+Route::get('/admin/reservations/{id}/edit', [AdminReservationController::class, 'edit'])
     ->name('admin.reservations.edit');
 Route::patch('/admin/reservations/{id}', [AdminReservationController::class, 'update'])
     ->name('admin.reservations.update');

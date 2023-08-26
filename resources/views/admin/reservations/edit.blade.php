@@ -11,6 +11,7 @@
 <body>
   <form action="{{ route('admin.reservations.update', ['id' => $reservation->id]) }}" method="POST">
     @csrf
+    @method('PATCH')
     @foreach ($errors->all() as $error)
       <li>{{ $error }}</li>
     @endforeach
@@ -20,12 +21,14 @@
     </div>
     <div>
       <label for="schedule_id">タイトル</label>
-      {{-- <input type="number" id="schedule_id" name="schedule_id" value="{{ $reservation->schedule_id }}"> --}}
       <select name="schedule_id" id="schedule_id">
         @foreach ($schedules as $schedule)
-          <option value="{{ $schedule->id }}">{{ $schedule->movie->title }} {{ $schedule->start_time }} ~ {{ $schedule->end_time }}の回</option>
+          <option value="{{ $schedule->id }}" @if ($reservation->schedule_id === $schedule->id)
+            selected
+          @endif data-movie-id="{{ $schedule->movie->id }}">{{ $schedule->movie->title }} {{ $schedule->start_time }} ~ {{ $schedule->end_time }}の回</option>
         @endforeach
       </select>
+      <input type="hidden" id="movie_id">
     </div>
     <div>
       <label for="sheet_id">座席</label>
@@ -51,5 +54,16 @@
     <button type="submit">削除</button>
   </form>
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const scheduleSelect = document.getElementById("schedule_id");
+      const movieIdInput = document.getElementById("movie_id");
 
+      scheduleSelect.addEventListener("change", function () {
+          const selectedOption = scheduleSelect.options[scheduleSelect.selectedIndex];
+          const selectedMovieId = selectedOption.getAttribute("data-movie-id");
+          movieIdInput.value = selectedMovieId;
+      });
+  });
+</script>
 </html>
