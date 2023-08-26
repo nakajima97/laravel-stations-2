@@ -27,8 +27,8 @@
     <tbody>
     @foreach ($reservations as $reservation)
       <tr>
-        <td>{{ $reservation->schedule->movie->title }}</td>
-        <td>{{ $reservation->sheet->row }}-{{ $reservation->sheet->column }}</td>
+        <td>{{ $reservation->title }}</td>
+        <td>{{ strtoupper($reservation->row . $reservation->column) }}</td>
         <td>{{ $reservation->date }}</td>
         <td>{{ $reservation->name }}</td>
         <td>{{ $reservation->email }}</td>
