@@ -83,3 +83,7 @@ Route::get('/movies/{movie_id}/schedules/{schedule_id}/reservations/create', [Re
 
 Route::get('/admin/reservations/', [AdminReservationController::class, 'index'])
     ->name('admin.reservations.index');
+Route::get('/admin/reservations/create', [AdminReservationController::class, 'create'])
+    ->name('admin.reservations.create');
+Route::post('/admin/reservations/store', [AdminReservationController::class, 'store'])
+    ->name('admin.reservations.store');
