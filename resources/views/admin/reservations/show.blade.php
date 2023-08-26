@@ -10,8 +10,8 @@
 
 <body>
   <p>上映日：{{ $reservation->date }}</p>
-  <p>スケジュールID：{{ $reservation->schedule_id}}</p>
-  <p>シートID：{{ $reservation->sheet_id }}</p>
+  <p>タイトル：{{ $reservation->schedule->movie->title}}</p>
+  <p>座席：{{ $reservation->sheet->row }}-{{ $reservation->sheet->column }}</p>
   <p>メールアドレス：{{ $reservation->email }}</p>
   <p>名前：{{ $reservation->name }}</p>
 </body>
