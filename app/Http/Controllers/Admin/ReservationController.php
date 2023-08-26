@@ -30,11 +30,18 @@ class ReservationController extends Controller
         $duplicate_reservation = Reservation::where('sheet_id', $request->input('sheet_id'))->where('schedule_id', $request->input('schedule_id'))->get();
 
         if ($duplicate_reservation->count() > 0) {
-            return redirect()->route('admin.reservations.index', ['movie_id' => $movie_id, 'schedule_id' => $request->input('schedule_id'), 'date' => $request->input('date')])->with(['flash_message' => 'その座席はすでに予約済みです']);
+            return redirect()->route('admin.reservations.index')->with(['flash_message' => 'その座席はすでに予約済みです']);
         }
 
         Reservation::create($request->all());
 
         return redirect()->to(route('admin.reservations.index'));
+    }
+
+    public function show($id)
+    {
+        $reservation = Reservation::find($id);
+
+        return view('admin.reservations.show', ['reservation' => $reservation]);
     }
 }

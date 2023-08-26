@@ -87,3 +87,5 @@ Route::get('/admin/reservations/create', [AdminReservationController::class, 'cr
     ->name('admin.reservations.create');
 Route::post('/admin/reservations/store', [AdminReservationController::class, 'store'])
     ->name('admin.reservations.store');
+Route::get('/admin/reservations/{id}', [AdminReservationController::class, 'show'])
+    ->name('admin.reservations.show');
